@@ -31,7 +31,6 @@ public class ListFragment extends Fragment {
     private ArrayList<DogBreed> dogBreeds;
     private DogAdapter dogAdapter;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
