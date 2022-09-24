@@ -10,10 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dogapp.R;
+import com.example.dogapp.databinding.DogsItemBinding;
 import com.example.dogapp.databinding.FragmentDetailsBinding;
 import com.example.dogapp.model.DogBreed;
 import com.squareup.picasso.Picasso;
@@ -41,15 +43,21 @@ public class DogAdapter extends RecyclerView.Adapter<DogAdapter.ViewHolder> impl
     @NonNull
     @Override
     public DogAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.dogs_item,parent, false);
-        return new ViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.dogs_item,parent, false);
+        DogsItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+                R.layout.dogs_item,
+                parent,
+                false);
+
+        return new ViewHolder(binding);
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull DogAdapter.ViewHolder holder, int position) {
-        holder.tvName.setText(dogList.get(position).getName());
-        holder.tvOrigin.setText(dogList.get(position).getOrigin());
-        Picasso.get().load(dogList.get(position).getUrl()).into(holder.ivAvatar);
+        holder.binding.setDog(dogList.get(position));
+        Picasso.get().load(dogList.get(position).getUrl()).into(holder.binding.ivAvatar);
     }
 
     @Override
@@ -59,22 +67,21 @@ public class DogAdapter extends RecyclerView.Adapter<DogAdapter.ViewHolder> impl
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvName;
-        public TextView tvOrigin;
-        public ImageView ivAvatar;
 
-        public ViewHolder(View view) {
-            super(view);
-            tvName = (TextView) view.findViewById(R.id.tv_name);
-            tvOrigin = view.findViewById(R.id.tv_origin);
-            ivAvatar = view.findViewById(R.id.iv_avatar);
-            view.setOnClickListener(new View.OnClickListener() {
+        public DogsItemBinding binding;
+
+        public ViewHolder(DogsItemBinding itemBinding) {
+            super(itemBinding.getRoot());
+            this.binding = itemBinding;
+
+            binding.ivAvatar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     DogBreed dog = dogList.get(getAdapterPosition());
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("dog", dog);
-                    Navigation.findNavController(view).navigate(R.id.detailsFragment2, bundle);
+//                    Navigation.findNavController(view).navigate(R.id.detailsFragment2, bundle);
+                    Navigation.findNavController(view).navigate(R.id.detailsFragment2);
                 }
             });
         }
