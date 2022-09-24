@@ -1,10 +1,11 @@
-package com.example.dogapp;
+package com.example.dogapp.view;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.dogapp.R;
 import com.example.dogapp.model.DogBreed;
 import com.example.dogapp.viewmodel.DogAdapter;
 import com.example.dogapp.viewmodel.DogApiService;
@@ -53,7 +55,7 @@ public class ListFragment extends Fragment {
         dogBreeds = new ArrayList<DogBreed>();
         dogAdapter = new DogAdapter(dogBreeds);
         rvDogs.setAdapter(dogAdapter);
-        rvDogs.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvDogs.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         apiService = new DogApiService();
         apiService.getDogs()

@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dogapp.R;
+import com.example.dogapp.databinding.FragmentDetailsBinding;
 import com.example.dogapp.model.DogBreed;
 import com.squareup.picasso.Picasso;
 
@@ -70,10 +71,10 @@ public class DogAdapter extends RecyclerView.Adapter<DogAdapter.ViewHolder> impl
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-//                    DogBreed dog = dogList.get(getAdapterPosition());
-//                    Bundle bundle = new Bundle();
-//                    bundle.putSerializable("dog", dog);
-//                    Navigation.findNavController(view).navigate(R.id.detailsFragment2, bundle);
+                    DogBreed dog = dogList.get(getAdapterPosition());
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("dog", dog);
+                    Navigation.findNavController(view).navigate(R.id.detailsFragment2, bundle);
                 }
             });
         }
