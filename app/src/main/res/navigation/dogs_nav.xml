@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/listFragment2"
-        android:name="com.example.dogapp.ListFragment"
+        android:name="com.example.dogapp.view.ListFragment"
         android:label="fragment_list"
         tools:layout="@layout/fragment_list" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailsFragment2"
-        android:name="com.example.dogapp.DetailsFragment"
+        android:name="com.example.dogapp.view.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details" >
         <action
