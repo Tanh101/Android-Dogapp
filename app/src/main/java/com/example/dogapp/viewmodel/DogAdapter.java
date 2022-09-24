@@ -6,8 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -16,12 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dogapp.R;
 import com.example.dogapp.databinding.DogsItemBinding;
-import com.example.dogapp.databinding.FragmentDetailsBinding;
 import com.example.dogapp.model.DogBreed;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.NavigableMap;
 
 public class DogAdapter extends RecyclerView.Adapter<DogAdapter.ViewHolder> implements Filterable {
 
@@ -79,9 +75,9 @@ public class DogAdapter extends RecyclerView.Adapter<DogAdapter.ViewHolder> impl
                 public void onClick(View view) {
                     DogBreed dog = dogList.get(getAdapterPosition());
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("dog", dog);
-//                    Navigation.findNavController(view).navigate(R.id.detailsFragment2, bundle);
-                    Navigation.findNavController(view).navigate(R.id.detailsFragment2);
+                    bundle.putSerializable("dogBreed", dog);
+                    Navigation.findNavController(view).navigate(R.id.detailsFragment, bundle);
+//                    Navigation.findNavController(view).navigate(R.id.detailsFragment2);
                 }
             });
         }

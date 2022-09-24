@@ -33,7 +33,7 @@ public class DetailsFragment extends Fragment {
         View viewRoot = fragmentDetailsBinding.getRoot();
         fragmentDetailsBinding.setDog(dogBreed);
 
-        return inflater.inflate(R.layout.fragment_details, container, false);
-
+//        return inflater.inflate(R.layout.fragment_details, container, false);
+        return viewRoot;
     }
 }
