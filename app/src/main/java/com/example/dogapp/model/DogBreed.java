@@ -1,8 +1,22 @@
 package com.example.dogapp.model;
 
+import android.content.Context;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+
+import androidx.core.content.ContextCompat;
+import androidx.databinding.BindingAdapter;
+
+//import com.bumptech.glide.Glide;
+//import com.bumptech.glide.request.RequestOptions;
+import com.example.dogapp.R;
 import com.google.gson.annotations.SerializedName;
+import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DogBreed implements Serializable {
 
@@ -70,6 +84,22 @@ public class DogBreed implements Serializable {
         this.origin = origin;
         this.url = url;
     }
+
+//    @BindingAdapter("android:imageUrl")
+//    public static void loadImage(View view, String url) {
+//        CircleImageView circleImageView = (CircleImageView) view;
+//        circleImageView.setImageDrawable(ContextCompat.getDrawable(
+//                view.getContext(),
+//                Integer.parseInt(url)
+//        ));
+//    }
+
+//    @BindingAdapter("profileImage")
+//    public static void loadImage(ImageView view, String imageUrl) {
+////        Glide.with(view.getContext())
+//////                .load(imageUrl).apply(new RequestOptions().circleCrop())
+//////                .into(view);
+//    }
 
 
 

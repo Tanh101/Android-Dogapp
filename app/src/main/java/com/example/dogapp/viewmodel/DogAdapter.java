@@ -18,13 +18,15 @@ import com.example.dogapp.model.DogBreed;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class DogAdapter extends RecyclerView.Adapter<DogAdapter.ViewHolder> implements Filterable {
 
 
     private ArrayList<DogBreed> dogList;
     private ArrayList<DogBreed> tmpList;
-    private CustomFilter cs;
+//    private CustomFilter cs;
 
     public DogAdapter(ArrayList<DogBreed> dogList) {
         this.dogList = dogList;
@@ -33,14 +35,39 @@ public class DogAdapter extends RecyclerView.Adapter<DogAdapter.ViewHolder> impl
 
     @Override
     public Filter getFilter() {
-        return null;
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String input = charSequence.toString().toLowerCase();
+                List<DogBreed> filteredDog = new ArrayList<DogBreed>();
+                if (input.isEmpty()) {
+                    filteredDog.addAll(dogList);
+                } else {
+                    for (DogBreed dog : dogList) {
+                        if (dog.getName().toLowerCase().contains(input)) {
+                            filteredDog.add(dog);
+                        }
+                    }
+                }
+                FilterResults filterResult = new FilterResults();
+                filterResult.values = filteredDog;
+                return filterResult;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                dogList = (ArrayList<DogBreed>) filterResults.values;
+                notifyDataSetChanged();
+
+            }
+        };
     }
 
     @NonNull
     @Override
     public DogAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.dogs_item,parent, false);
+                .inflate(R.layout.dogs_item, parent, false);
         DogsItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                 R.layout.dogs_item,
                 parent,
@@ -77,47 +104,46 @@ public class DogAdapter extends RecyclerView.Adapter<DogAdapter.ViewHolder> impl
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("dogBreed", dog);
                     Navigation.findNavController(view).navigate(R.id.detailsFragment, bundle);
-//                    Navigation.findNavController(view).navigate(R.id.detailsFragment2);
                 }
             });
         }
 
     }
 
-    public class CustomFilter extends Filter {
-        @Override
-        protected FilterResults performFiltering(CharSequence charSequence) {
-            FilterResults result = new FilterResults();
-            if (charSequence != null && charSequence.length() > 0) {
-                charSequence = charSequence.toString().toUpperCase();
-                ArrayList<DogBreed> filters = new ArrayList<>();
-                for (int i = 0; i < tmpList.size(); i++) {
-                    if (tmpList.get(i).getName().toUpperCase().contains(charSequence)) {
-                        DogBreed dogBreed = new DogBreed(tmpList.get(i).getName(),
-                                tmpList.get(i).getLifeSpan(), tmpList.get(i).getOrigin(),
-                                tmpList.get(i).getUrl());
-                        filters.add(dogBreed);
-                    }
+//    public class CustomFilter extends Filter {
+//        @Override
+//        protected FilterResults performFiltering(CharSequence charSequence) {
+//            FilterResults result = new FilterResults();
+//            if (charSequence != null && charSequence.length() > 0) {
+//                charSequence = charSequence.toString().toUpperCase();
+//                ArrayList<DogBreed> filters = new ArrayList<>();
+//                for (int i = 0; i < tmpList.size(); i++) {
+//                    if (tmpList.get(i).getName().toUpperCase().contains(charSequence)) {
+//                        DogBreed dogBreed = new DogBreed(tmpList.get(i).getName(),
+//                                tmpList.get(i).getLifeSpan(), tmpList.get(i).getOrigin(),
+//                                tmpList.get(i).getUrl());
+//                        filters.add(dogBreed);
+//                    }
+//
+//                }
+//                result.count = filters.size();
+//                result.values = filters;
+//            } else {
+//                result.count = tmpList.size();
+//                result.values = tmpList;
+//            }
+//            return result;
+//        }
+//
+//
+//        @Override
+//        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+//            dogList = (ArrayList<DogBreed>) filterResults.values;
+//            notifyDataSetChanged();
+//        }
 
-                }
-                result.count = filters.size();
-                result.values = filters;
-            } else {
-                result.count = tmpList.size();
-                result.values = tmpList;
-            }
-            return result;
-        }
 
-
-        @Override
-        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            dogList = (ArrayList<DogBreed>) filterResults.values;
-            notifyDataSetChanged();
-        }
-
-
-    }
+//    }
 }
 
 
