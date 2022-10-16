@@ -59,6 +59,8 @@ public class ListFragment extends Fragment {
         dogBreeds = new ArrayList<DogBreed>();
         dogAdapter = new DogAdapter(dogBreeds);
         rvDogs.setAdapter(dogAdapter);
+//        rvDogs.setAdapter(dogAdapter);
+
         rvDogs.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         apiService = new DogApiService();
